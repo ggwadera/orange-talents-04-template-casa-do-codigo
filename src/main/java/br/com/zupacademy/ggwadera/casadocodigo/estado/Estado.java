@@ -17,7 +17,7 @@ public class Estado {
     @Column(nullable = false)
     private String nome;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Pais pais;
 
     @Deprecated
