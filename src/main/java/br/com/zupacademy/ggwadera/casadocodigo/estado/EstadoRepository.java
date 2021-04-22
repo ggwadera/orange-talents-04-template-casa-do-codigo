@@ -6,4 +6,6 @@ public interface EstadoRepository extends JpaRepository<Estado, Long> {
 
 	boolean existsById(Long id);
 
+	boolean existsByIdAndPaisId(Long id, Long paisId);
+
 }

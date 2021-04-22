@@ -28,12 +28,13 @@ public class ClienteValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		if (errors.hasErrors()) return;
 		final ClienteNovoDTO dto = (ClienteNovoDTO) target;
-		int countEstadosById = paisRepository.countEstadosById(dto.getPaisId());
-		if (countEstadosById == 0) return;
+		if (paisRepository.countEstadosById(dto.getPaisId()) == 0) return;
 		if (dto.getEstadoId() == null) {
 			errors.rejectValue("estadoId", null, "estado deve ser especificado");
 		} else if (!estadoRepository.existsById(dto.getEstadoId())) {
 			errors.rejectValue("estadoId", null, "não foi encontrado nenhum estado com esse id");
+		} else if (!estadoRepository.existsByIdAndPaisId(dto.getEstadoId(), dto.getPaisId())) {
+			errors.rejectValue("estadoId", null, "estado não pertence ao país selecionado");
 		}
 	}
 
